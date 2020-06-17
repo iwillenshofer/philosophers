@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:54:15 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/14 19:26:44 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 14:35:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	philo_eat(t_philosophers *p)
 	ph_setaction(p, AC_EATING);
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_mutex_unlock((&(p->last_eaten_lock)));
+
+	ph_setaction(p, AC_DONEEATING);
 	usleep(p->game->time_to_eat * 1000);
+
 	pthread_mutex_unlock((&(p->left_fork->lock)));
 	pthread_mutex_unlock((&(p->right_fork->lock)));
 	ph_setaction(p, AC_DONEEATING);

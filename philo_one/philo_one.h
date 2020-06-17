@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/13 20:49:47 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 14:34:40 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ ssize_t					ft_atoui(char *s);
 void					ph_writeaction(t_philosophers *p, int action);
 void					ph_setaction(t_philosophers *p, int action);
 unsigned long int		ttime_to_ms(t_time time);
+void					ph_write_time(t_philosophers *p);
 
 /*
 ** **** args:

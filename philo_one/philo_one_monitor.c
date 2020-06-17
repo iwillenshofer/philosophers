@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 10:51:25 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 13:50:01 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	*monitor(void *philosopher)
 	g = p->game;
 	while (p && !(g->someone_died) && (!(g->all_finished)))
 	{
-		gettimeofday(&time, NULL);
 		pthread_mutex_lock((&(p->last_eaten_lock)));
+		gettimeofday(&time, NULL);
 		time_lasteaten = p->last_eaten;
-		pthread_mutex_unlock((&(p->last_eaten_lock)));
 		if (ttime_to_ms(time) > ttime_to_ms(time_lasteaten) + g->time_to_die)
 		{
 			ph_setaction(p, AC_DIED);
-			break ;
 		}
+		pthread_mutex_unlock((&(p->last_eaten_lock)));
+		usleep(5);
 	}
 	return (0);
 }
