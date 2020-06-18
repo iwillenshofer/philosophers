@@ -35,8 +35,7 @@ void	*philo_action(void *philosopher)
 	t_philosophers *p;
 
 	p = (t_philosophers *)philosopher;
-	pthread_create(&(p->monitor_thread), NULL, &monitor, p);
-	pthread_detach(p->monitor_thread);
+	gettimeofday(&(p->last_eaten), NULL);
 	while (42 && !(p->game->someone_died) && !(p->game->all_finished))
 	{
 		if (check_death_or_finish(p->game))
@@ -55,13 +54,13 @@ void	*philo_action(void *philosopher)
 void	play_game(t_game *g)
 {
 	t_philosophers	*p;
-
-	gettimeofday(&(g->start_time), NULL);
 	p = g->philosopher;
+	gettimeofday(&(g->start_time), NULL);
 	while (p)
 	{
-		gettimeofday(&(p->last_eaten), NULL);
 		pthread_create(&(p->thread), NULL, &philo_action, p);
+		pthread_create(&(p->monitor_thread), NULL, &monitor, p);
+		pthread_detach(p->monitor_thread);
 		p = p->next;
 		if (p == g->philosopher)
 			break ;
@@ -72,6 +71,7 @@ int		main(int argc, char **argv)
 {
 	t_game game;
 
+	ft_bzero(&game, sizeof(t_game));
 	if (ca_get_arguments(argc, argv, &game) == ARGS_INVALID)
 		return (err_print(ERR_INVALID_ARGS));
 	else if (game.number_of_philosophers == 0)

@@ -71,3 +71,17 @@ void					ft_putstr_fd(char *str, int fd)
 		i++;
 	}
 }
+
+void					ft_bzero(void *str, size_t n)
+{
+	char *s;
+	size_t i;
+
+	i = 0;
+	s = (char*)str;
+	while (i < n)
+	{
+		s[i] = 0;
+		i++;
+	}
+}

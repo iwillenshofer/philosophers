@@ -20,7 +20,7 @@ void	philo_think(t_philosophers *p)
 void	philo_sleep(t_philosophers *p)
 {
 	ph_setaction(p, AC_SLEEPING, get_time(p->game));
-	ft_usleep(p->game->time_to_sleep * 1000);
+	ft_usleep(p->game->time_to_sleep);
 }
 
 void	philo_getfork(t_philosophers *p, char side)
@@ -45,7 +45,7 @@ void	philo_eat(t_philosophers *p)
 	ph_setaction(p, AC_EATING, get_time(p->game));
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_mutex_unlock((&(p->last_eaten_lock)));
-	ft_usleep(p->game->time_to_eat * 1000);
+	ft_usleep(p->game->time_to_eat);
 	ph_setaction(p, AC_DONEEATING, get_time(p->game));
 	pthread_mutex_unlock((&(p->left_fork->lock)));
 	pthread_mutex_unlock((&(p->right_fork->lock)));

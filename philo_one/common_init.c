@@ -27,6 +27,7 @@ int		init_philosophers(t_game *game)
 	{
 		if (!(new = (t_philosophers *)malloc(sizeof(t_philosophers))))
 			return (FAIL);
+		ft_bzero(new, sizeof(t_philosophers));
 		new->times_eaten = 0;
 		new->number = i + 1;
 		new->game = game;
@@ -53,6 +54,7 @@ int		init_forks(t_game *game)
 	{
 		if (!(new = (t_forks *)malloc(sizeof(t_forks))))
 			return (FAIL);
+		ft_bzero(new, sizeof(t_forks));
 		new->next = NULL;
 		if (i == 0)
 			game->fork = new;

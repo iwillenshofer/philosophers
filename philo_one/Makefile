@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(CC) -c $(CCFLAGS) $< $(INCLUDES) -o $@
 
 test: all
-	./$(NAME) 2 410 200 200 300
+	./$(NAME) 4 410 200 200
 
 clean: 
 	rm -rf ./build

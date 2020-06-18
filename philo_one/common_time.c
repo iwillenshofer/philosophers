@@ -33,10 +33,10 @@ void					ft_usleep(long int us)
 
 	gettimeofday(&start, NULL);
 	gettimeofday(&cur, NULL);
-	while ((((cur.tv_sec - start.tv_sec) * 1000000)
-		+ ((cur.tv_usec - start.tv_usec))) <= us)
+	while ((((cur.tv_sec - start.tv_sec) * 1000)
+		+ ((cur.tv_usec - start.tv_usec)) / 1000) < us)
 	{
 		gettimeofday(&cur, NULL);
-		usleep(100);
+		usleep(10);
 	}
 }

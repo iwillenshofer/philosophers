@@ -86,6 +86,7 @@ struct					s_game
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	unsigned int	number_of_times_each_philosopher_must_eat;
+	unsigned int	sync;
 	pthread_t		monitor_thread;
 	pthread_mutex_t	writelock;
 	t_philosophers	*philosopher;
@@ -106,6 +107,8 @@ void					ph_write_time(t_philosophers *p);
 void					ft_usleep(long int us);
 unsigned long int		ttime_to_ms(t_time time);
 unsigned long int		get_time(t_game *g);
+void					ft_bzero(void *str, size_t n);
+void					wait_sync(t_game *g);
 
 /*
 ** **** args:

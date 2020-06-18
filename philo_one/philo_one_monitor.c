@@ -32,11 +32,12 @@ void	*monitor(void *philosopher)
 	t_philosophers	*p;
 	t_time			time;
 	t_time			time_lasteaten;
-	int i;
+	int				i;
 
 	i = 0;
 	p = (t_philosophers*)philosopher;
 	g = p->game;
+	usleep(5000);
 	while (p && !(g->someone_died) && (!(g->all_finished)))
 	{
 		pthread_mutex_lock((&(p->last_eaten_lock)));
@@ -48,7 +49,7 @@ void	*monitor(void *philosopher)
 			unlock_forks(g);
 		}
 		pthread_mutex_unlock((&(p->last_eaten_lock)));
-		usleep(5);
+		usleep(8000);
 	}
 	return (0);
 }
