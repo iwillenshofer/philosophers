@@ -6,11 +6,25 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 13:50:01 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:54:34 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+
+void	unlock_forks(t_game *g)
+{
+	t_philosophers *p;
+
+	p = g->philosopher;
+	while (p)
+	{
+		pthread_mutex_unlock(&(p->left_fork->lock));
+		p = p->next;
+		if (p == g->philosopher)
+			break;
+	}
+}
 
 void	*monitor(void *philosopher)
 {
@@ -18,7 +32,9 @@ void	*monitor(void *philosopher)
 	t_philosophers	*p;
 	t_time			time;
 	t_time			time_lasteaten;
+	int i;
 
+	i = 0;
 	p = (t_philosophers*)philosopher;
 	g = p->game;
 	while (p && !(g->someone_died) && (!(g->all_finished)))
@@ -28,7 +44,8 @@ void	*monitor(void *philosopher)
 		time_lasteaten = p->last_eaten;
 		if (ttime_to_ms(time) > ttime_to_ms(time_lasteaten) + g->time_to_die)
 		{
-			ph_setaction(p, AC_DIED);
+			ph_setaction(p, AC_DIED, get_time(p->game));
+			unlock_forks(g);
 		}
 		pthread_mutex_unlock((&(p->last_eaten_lock)));
 		usleep(5);

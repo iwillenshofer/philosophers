@@ -6,25 +6,27 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 14:58:07 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:58:39 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
+
+
 
 int		check_death_or_finish(t_game *g)
 {
 	int ret;
 
 	ret = 0;
-	//pthread_mutex_lock(&(g->someone_died_lock));
+	pthread_mutex_lock(&(g->someone_died_lock));
 	if (g->someone_died)
 		ret = 1;
-	//pthread_mutex_unlock(&(g->someone_died_lock));
-	//pthread_mutex_lock(&(g->finished_eating_lock));
+	pthread_mutex_unlock(&(g->someone_died_lock));
+	pthread_mutex_lock(&(g->finished_eating_lock));
 	if (g->all_finished)
 		ret = 1;
-	//pthread_mutex_unlock(&(g->finished_eating_lock));
+	pthread_mutex_unlock(&(g->finished_eating_lock));
 	return (ret);
 }
 
@@ -43,8 +45,8 @@ void	*philo_action(void *philosopher)
 		if (check_death_or_finish(p->game))
 			break ;
 		philo_sleep(p);
-//		if (check_death_or_finish(p->game))
-//			break ;
+		if (check_death_or_finish(p->game))
+			break ;
 		philo_think(p);
 	}
 	return (0);
@@ -54,6 +56,7 @@ void	play_game(t_game *g)
 {
 	t_philosophers	*p;
 
+	gettimeofday(&(g->start_time), NULL);
 	p = g->philosopher;
 	while (p)
 	{
@@ -76,17 +79,6 @@ int		main(int argc, char **argv)
 	if ((init_game(&game)))
 	{
 		philo_one_init(&game);
-	
-	gettimeofday(&game.start_time, NULL);
-	
-		ph_write_time(game.philosopher);
-
-	ft_putstr_fd("X", 1);
-	usleep(100000);
-	ft_putstr_fd("X", 1);
-		ph_write_time(game.philosopher);
-
-	exit(0);
 		play_game(&game);
 		wait_for_end(&game);
 		destroy_mutex(&game);

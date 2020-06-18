@@ -6,25 +6,16 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/16 12:00:04 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:19:48 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-void		ph_write_time(t_philosophers *p)
+void		ph_writeaction(t_philosophers *p, int action, long ms)
 {
-	t_time	curtime;
-
-	gettimeofday(&curtime, NULL);
-	ft_putnbr(((curtime.tv_sec - p->game->start_time.tv_sec) * 1000)
-		+ ((curtime.tv_usec - p->game->start_time.tv_usec) / 1000));
+	ft_putnbr(ms);
 	ft_putstr_fd("ms ", STDOUT_FILENO);
-}
-
-void		ph_writeaction(t_philosophers *p, int action)
-{
-	ph_write_time(p);
 	if (action != AC_ALL_EATEN)
 		ft_putnbr((ssize_t)p->number);
 	if (action == AC_TAKENFORK)
@@ -48,7 +39,7 @@ void		ph_writeaction(t_philosophers *p, int action)
 			STDOUT_FILENO);
 }
 
-void		ph_checktimeseaten(t_philosophers *p)
+void		ph_checktimeseaten(t_philosophers *p, long ms)
 {
 	if (++(p->times_eaten)
 		>= p->game->number_of_times_each_philosopher_must_eat
@@ -58,23 +49,23 @@ void		ph_checktimeseaten(t_philosophers *p)
 		if (p->game->finished_eating_count
 						== p->game->number_of_philosophers)
 		{
-			ph_writeaction(p, AC_ALL_EATEN);
+			ph_writeaction(p, AC_ALL_EATEN, ms);
 			(p->game->all_finished) = TRUE;
 		}
 	}
 }
 
-void		ph_setaction(t_philosophers *p, int action)
+void		ph_setaction(t_philosophers *p, int action, long ms)
 {
 	sem_wait(p->game->writelock);
 	sem_wait(p->game->deadlock);
 	if ((!((p->game->someone_died)) && !((p->game->all_finished))))
-		ph_writeaction(p, action);
+		ph_writeaction(p, action, ms);
 	if (action == AC_DIED)
 		(p->game->someone_died) = TRUE;
 	if (action == AC_DONEEATING && !((p->game->someone_died))
 									&& !((p->game->all_finished)))
-		ph_checktimeseaten(p);
+		ph_checktimeseaten(p, ms);
 	sem_post(p->game->writelock);
 	if (!((p->game->someone_died)) && !((p->game->all_finished)))
 		sem_post(p->game->deadlock);

@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 14:34:40 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:55:24 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ struct					s_game
 void					ft_putnbr(ssize_t n);
 void					ft_putstr_fd(char *str, int fd);
 ssize_t					ft_atoui(char *s);
-void					ph_writeaction(t_philosophers *p, int action);
-void					ph_setaction(t_philosophers *p, int action);
-unsigned long int		ttime_to_ms(t_time time);
+void					ph_writeaction(t_philosophers *p, int action, long ms);
+void					ph_setaction(t_philosophers *p, int action, long ms);
 void					ph_write_time(t_philosophers *p);
+void					ft_usleep(long int us);
+unsigned long int		ttime_to_ms(t_time time);
+unsigned long int		get_time(t_game *g);
 
 /*
 ** **** args:
@@ -149,6 +151,7 @@ void					philo_eat(t_philosophers *p);
 */
 
 void					*monitor(void *philosopher);
+void					unlock_forks(t_game *g);
 
 /*
 ** **** end

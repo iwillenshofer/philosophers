@@ -6,7 +6,7 @@
 #    By: iwillens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 17:45:43 by iwillens          #+#    #+#              #
-#    Updated: 2020/06/15 11:09:56 by iwillens         ###   ########.fr        #
+#    Updated: 2020/06/17 21:11:18 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =  $(SRC_DIR)/common_args.c \
 		$(SRC_DIR)/common_init.c \
 		$(SRC_DIR)/common_memfree.c \
 		$(SRC_DIR)/common_write.c \
+		$(SRC_DIR)/common_time.c \
 		$(SRC_DIR)/philo_two_init.c \
 		$(SRC_DIR)/philo_two_actions.c \
 		$(SRC_DIR)/philo_two_monitor.c \
@@ -44,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(CC) -c $(CCFLAGS) $< $(INCLUDES) -o $@
 
 test: all
-	./$(NAME) 3 5000 100 30 2
+	./$(NAME) 2 410 200 200 200
 
 clean: 
 	rm -rf ./build

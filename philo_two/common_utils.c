@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:35 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/14 21:43:23 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 15:32:29 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,4 @@ void					ft_putstr_fd(char *str, int fd)
 		write(fd, &str[i], 1);
 		i++;
 	}
-}
-
-unsigned long int		ttime_to_ms(t_time time)
-{
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }

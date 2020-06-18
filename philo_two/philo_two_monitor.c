@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 10:51:57 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:23:59 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*monitor(void *philosopher)
 		time_lasteaten = p->last_eaten;
 		if (ttime_to_ms(time) > ttime_to_ms(time_lasteaten) + g->time_to_die)
 		{
-			ph_setaction(p, AC_DIED);
+			ph_setaction(p, AC_DIED, get_time(p->game));
 			sem_post(p->lasteatenlock);
 			sem_post(g->forks);
 			sem_post(g->forks);

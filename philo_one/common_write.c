@@ -6,25 +6,16 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 14:56:50 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:18:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void		ph_write_time(t_philosophers *p)
+void		ph_writeaction(t_philosophers *p, int action, long ms)
 {
-	t_time	curtime;
-
-	gettimeofday(&curtime, NULL);
-	ft_putnbr(((curtime.tv_sec - p->game->start_time.tv_sec) * 1000)
-		+ ((curtime.tv_usec - p->game->start_time.tv_usec) / 1000));
+	ft_putnbr(ms);
 	ft_putstr_fd("ms ", STDOUT_FILENO);
-}
-
-void		ph_writeaction(t_philosophers *p, int action)
-{
-	ph_write_time(p);
 	if (action != AC_ALL_EATEN)
 		ft_putnbr((ssize_t)p->number);
 	if (action == AC_TAKENFORK)
@@ -48,12 +39,12 @@ void		ph_writeaction(t_philosophers *p, int action)
 			STDOUT_FILENO);
 }
 
-void		ph_setaction(t_philosophers *p, int action)
+void		ph_setaction(t_philosophers *p, int action, long ms)
 {
 	pthread_mutex_lock(&(p->game->writelock));
 	pthread_mutex_lock((&(p->game->someone_died_lock)));
 	if ((!(p->game->someone_died) && !(p->game->all_finished)))
-		ph_writeaction(p, action);
+		ph_writeaction(p, action, ms);
 	if (action == AC_DIED)
 		p->game->someone_died = 1;
 	pthread_mutex_unlock(&(p->game->someone_died_lock));
