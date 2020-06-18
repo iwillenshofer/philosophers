@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:21:20 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/17 21:19:06 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*monitor(void *philosopher)
 	{
 		sem_wait(p->game->deadlock);
 		if ((p->game->someone_died))
-			exit(1);
+			exit(0);
 		sem_post(p->game->deadlock);
 		gettimeofday(&time, NULL);
 		sem_wait(p->lasteatenlock);
