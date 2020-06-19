@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:54:34 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/19 14:19:07 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*monitor(void *philosopher)
 			unlock_forks(g);
 		}
 		pthread_mutex_unlock((&(p->last_eaten_lock)));
-		usleep(8000);
+		usleep(1000);
 	}
 	return (0);
 }

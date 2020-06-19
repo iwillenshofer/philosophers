@@ -6,12 +6,13 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 16:52:23 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/18 20:36:10 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/19 16:56:01 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdint.h>
 
 typedef struct timeval	t_time;
 
@@ -32,65 +33,90 @@ void					ft_putstr_fd(char *str, int fd)
 
 void					ft_putnbr(ssize_t n)
 {
-    char        str[20];
+	char		c;
 	ssize_t		signal;
-	int			digits;
-    int			i;
-	ssize_t		number;
-	i = 0;
-	digits = 0;
-	signal = 0;
+
+	signal = 1;
 	if (n < 0)
 	{
-		signal = 1;
-        n = n * 1;
+		signal = -1;
+		write(1, "-", 1);
 	}
-	number = n;
-	while ((number = number / 10))
-		digits += 1;
-    while (n >= 0)
-    {
-        str[digits-i] = (n % 10) + '0';
-        n = n / 10;
-		i++;
-        if (n == 0)
-            break;
-    }
-	str[i] = '\n';
-	str[i + 1] = '\0';
-	ft_putstr_fd(str, 1);
+	if (n / 10)
+		ft_putnbr((n / 10) * signal);
+	c = ((unsigned int)(n * signal) % 10) + '0';
+	write(1, &c, 1);
 }
 
-unsigned long int		get_time()
+uint64_t		get_time()
 {
-	t_time now;
+	t_time		now;
+	uint64_t 	t;
+	uint64_t 	tg;
 	gettimeofday(&now, NULL);
-	return (((now.tv_sec * 1000000 + now.tv_usec)
-		- (g_starttime.tv_sec * 1000000 + g_starttime.tv_usec)) / 1000);
+	t = now.tv_sec * 1000000;
+	t += now.tv_usec;
+	tg = g_starttime.tv_sec * 1000000;
+	tg += g_starttime.tv_usec;
+	return ((t - tg) / 1000);
 }
 
-void        ft_usleep(long int us)
+uint64_t
+time_diff ( struct timeval *y, struct timeval *x)
 {
-    t_time start;
-    t_time cur;
+	uint64_t res;
+  /* Perform the carry for the later subtraction by updating y. */
+  if (x->tv_usec < y->tv_usec) {
+    uint64_t nsec = (y->tv_usec - x->tv_usec) / 1000000 + 1;
+    y->tv_usec -= 1000000 * nsec;
+    y->tv_sec += nsec;
+  }
+  if (x->tv_usec - y->tv_usec > 1000000) {
+    uint64_t nsec = (x->tv_usec - y->tv_usec) / 1000000;
+    y->tv_usec += 1000000 * nsec;
+    y->tv_sec -= nsec;
+  }
+  res = (x->tv_sec - y->tv_sec) * 1000000;
+  res += x->tv_usec - y->tv_usec;
+  return (res / 1000);
+}
 
-    gettimeofday(&cur, NULL);
-	start = cur;
-    while (((cur.tv_sec - start.tv_sec) * 1000000)
-        + ((cur.tv_usec - start.tv_usec)) < us)
-    {
-        gettimeofday(&cur, NULL);   
-        usleep(1);
-    }
+
+uint64_t			chrono(void)
+{
+	uint64_t		time;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec) * (uint64_t)1000 + (tv.tv_usec / 1000);
+	return (time);
+}
+
+static void		ft_usleep(unsigned int n)
+{
+	uint64_t	start;
+
+	start = chrono();
+	while (1)
+	{
+		usleep(50);
+		if (chrono() - start >= n)
+			break ;
+	}
 }
 
 int main(void)
 {
+	t_time now;
+
 	gettimeofday(&g_starttime, NULL);
 	while (1)
 	{
-		ft_putnbr(get_time());
-		ft_usleep(100 * 1000);
+		gettimeofday(&now, NULL);
+
+		ft_putnbr(time_diff(&g_starttime, &now));
+		ft_putstr_fd("\n", 1);
+		ft_usleep(100);
 	}
 	return (0);
 }
