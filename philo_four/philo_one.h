@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:55:24 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/19 17:51:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct			s_philosophers
 struct					s_game
 {
 	t_time			start_time;
+	uint64_t		start_time_ms;
 	unsigned int	someone_died;
 	pthread_mutex_t	someone_died_lock;
 	unsigned int	all_finished;
@@ -105,10 +106,10 @@ void					ph_writeaction(t_philosophers *p, int action, long ms);
 void					ph_setaction(t_philosophers *p, int action, long ms);
 void					ph_write_time(t_philosophers *p);
 void					ft_usleep(long int us);
-unsigned long int		ttime_to_ms(t_time time);
-unsigned long int		get_time(t_game *g);
+uint64_t				ttime_to_ms(t_time time);
 void					ft_bzero(void *str, size_t n);
 void					wait_sync(t_game *g);
+long					get_elapsedtime(t_game *g);
 
 /*
 ** **** args:
