@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 21:19:06 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 04:16:33 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	*monitor(void *philosopher)
 		time_lasteaten = p->last_eaten;
 		if (ttime_to_ms(time) > ttime_to_ms(time_lasteaten) + g->time_to_die)
 		{
-			ph_setaction(p, AC_DIED, get_time(p->game));
+			ph_setaction(p, AC_DIED, get_elapsedtime(p->game));
 			sem_post(p->lasteatenlock);
 			break ;
 		}
 		sem_post(p->lasteatenlock);
+		usleep(1000);
+
 	}
 	return (0);
 }

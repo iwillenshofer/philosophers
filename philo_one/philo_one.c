@@ -6,13 +6,11 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:58:39 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/19 21:08:08 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
-
-
 
 int		check_death_or_finish(t_game *g)
 {
@@ -56,6 +54,7 @@ void	play_game(t_game *g)
 	t_philosophers	*p;
 	p = g->philosopher;
 	gettimeofday(&(g->start_time), NULL);
+	g->start_time_ms = ttime_to_ms(g->start_time);
 	while (p)
 	{
 		pthread_create(&(p->thread), NULL, &philo_action, p);

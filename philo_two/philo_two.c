@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 10:53:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 03:45:05 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ void	play_game(t_game *g)
 	t_philosophers	*p;
 
 	p = g->philosopher;
+	gettimeofday(&g->start_time, NULL);
+	g->start_time_ms = ttime_to_ms(g->start_time);
 	while (p)
 	{
 		gettimeofday(&(p->last_eaten), NULL);
 		pthread_create(&(p->thread), NULL, &philo_action, p);
 		p = p->next;
-		usleep(10);
 		if (p == g->philosopher)
 			break ;
 	}

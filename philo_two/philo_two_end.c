@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:51:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 10:50:30 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 04:15:07 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	wait_for_end(t_game *g)
 	}
 	sem_close(g->forks);
 	sem_close(g->writelock);
+	sem_close(g->forkslock);
 	sem_unlink("fork");
 	sem_unlink("writelock");
+	sem_unlink("forkslock");
 	while (p)
 	{
 		sem_close((p->lasteatenlock));

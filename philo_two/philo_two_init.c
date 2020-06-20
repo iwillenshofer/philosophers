@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 21:47:52 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 10:45:59 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 03:42:38 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	philo_two_init(t_game *g)
 
 	p = g->philosopher;
 	sem_unlink("fork");
+	sem_unlink("forkslock");
 	sem_unlink("writelock");
 	sem_unlink("deadlock");
 	sem_unlink("eatenlock");
 	g->forks = sem_open("fork", O_CREAT, 0777, (g->number_of_philosophers));
+	g->forkslock = sem_open("forkslock", O_CREAT, 0777, 1);
 	g->writelock = sem_open("writelock", O_CREAT, 0777, 1);
 	g->deadlock = sem_open("deadlock", O_CREAT, 0777, 1);
 	g->eatenlock = sem_open("eatenlock", O_CREAT, 0777, 1);

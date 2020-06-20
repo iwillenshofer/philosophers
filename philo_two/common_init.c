@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 21:33:34 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/14 21:42:33 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 01:11:31 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		init_game(t_game *game)
 	game->someone_died = SCHROEDINGER_ALIVE;
 	game->finished_eating_count = 0;
 	game->all_finished = FALSE;
-	gettimeofday(&game->start_time, NULL);
 	if (!(init_philosophers(game)))
 	{
 		memfree_philosophers(game);

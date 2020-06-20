@@ -6,13 +6,13 @@
 #    By: iwillens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 17:45:43 by iwillens          #+#    #+#              #
-#    Updated: 2020/06/17 21:09:02 by iwillens         ###   ########.fr        #
+#    Updated: 2020/06/20 19:36:52 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_three
 CC = clang
-CCFLAGS = -Wall -Wextra -Werror -Wno-nullability-completeness -fsanitize=address -g
+CCFLAGS = -Wall -Wextra -Werror -Wno-nullability-completeness
 
 OBJ_DIR= ./build
 SRC_DIR= ./
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(CC) -c $(CCFLAGS) $< $(INCLUDES) -o $@
 
 test: all
-	./$(NAME) 3 410 200 200 20
+	./$(NAME) 2 410 200 200 20
 
 clean: 
 	rm -rf ./build

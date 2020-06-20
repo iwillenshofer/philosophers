@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:19:48 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 18:35:51 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		ph_checktimeseaten(t_philosophers *p, long ms)
 {
 	if (++(p->times_eaten)
 		>= p->game->number_of_times_each_philosopher_must_eat
-		&& p->game->number_of_times_each_philosopher_must_eat)
+		&& p->game->number_of_times_each_philosopher_must_eat > 0)
 	{
 		p->game->finished_eating_count++;
 		if (p->game->finished_eating_count

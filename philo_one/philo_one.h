@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:55:24 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/19 21:08:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <stdint.h>
 
 # define ARGS_INVALID -1
 
@@ -49,6 +50,9 @@
 # define FALSE 0
 # define TRUE 1
 
+#define MILLISECONDS 0
+#define MICROSECONDS 1
+
 typedef struct timeval	t_time;
 
 typedef struct s_game	t_game;
@@ -76,6 +80,7 @@ typedef struct			s_philosophers
 struct					s_game
 {
 	t_time			start_time;
+	uint64_t		start_time_ms;
 	unsigned int	someone_died;
 	pthread_mutex_t	someone_died_lock;
 	unsigned int	all_finished;
@@ -104,11 +109,11 @@ ssize_t					ft_atoui(char *s);
 void					ph_writeaction(t_philosophers *p, int action, long ms);
 void					ph_setaction(t_philosophers *p, int action, long ms);
 void					ph_write_time(t_philosophers *p);
-void					ft_usleep(long int us);
-unsigned long int		ttime_to_ms(t_time time);
-unsigned long int		get_time(t_game *g);
+void					ft_usleep(uint64_t ms);
+uint64_t				ttime_to_ms(t_time time);
 void					ft_bzero(void *str, size_t n);
 void					wait_sync(t_game *g);
+long					get_elapsedtime(t_game *g);
 
 /*
 ** **** args:

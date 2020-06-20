@@ -6,38 +6,41 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 15:30:04 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 21:06:53 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 03:49:18 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
 
-unsigned long int		ttime_to_ms(t_time time)
-{
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+uint64_t				ttime_to_ms(t_time time)
+{	
+	uint64_t 	t;
+	t = time.tv_sec * (uint64_t)1000000;
+	t += time.tv_usec;
+	return ((t) / (uint64_t)1000);
 }
 
-
-unsigned long int		get_time(t_game *g)
+uint64_t				get_time()
 {
 	t_time now;
-	gettimeofday(&now, NULL);
 
-	return (((now.tv_sec - g->start_time.tv_sec) * 1000)
-		+ ((now.tv_usec - g->start_time.tv_usec) / 1000));
+	gettimeofday(&now, NULL);
+	return (ttime_to_ms(now));
 }
 
-void					ft_usleep(long int us)
+void					ft_usleep(uint64_t ms)
 {
-	t_time start;
-	t_time cur;
+	uint64_t 	start;
 
-	gettimeofday(&start, NULL);
-	gettimeofday(&cur, NULL);
-	while ((((cur.tv_sec - start.tv_sec) * 1000000)
-		+ ((cur.tv_usec - start.tv_usec))) <= us)
-	{
-		gettimeofday(&cur, NULL);
-		usleep(100);
-	}
+	start = get_time();
+	while (get_time() < start + ms)
+		usleep(50);
+}
+
+long					get_elapsedtime(t_game *g)
+{
+	t_time now;
+
+	gettimeofday(&now, NULL);
+	return (ttime_to_ms(now) - g->start_time_ms);
 }

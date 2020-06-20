@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/16 12:17:36 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 19:36:37 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	*wait_end(void *philosopher)
 }
 
 int		philo_action(t_philosophers *p)
-{
-	sem_wait(p->game->sync);
-	gettimeofday(&(p->game->start_time), NULL);
+{	
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_create(&(p->end_thread), NULL, &wait_end, p);
 	pthread_detach(p->end_thread);
@@ -62,19 +60,23 @@ int		play_game(t_game *g)
 	t_philosophers	*p;
 
 	p = g->philosopher;
+	gettimeofday(&(p->game->start_time), NULL);
+	p->game->start_time_ms = ttime_to_ms(p->game->start_time);
+	ph_setaction(p, AC_TAKENFORK, get_elapsedtime(p->game));
 	while (p)
 	{
 		p->pid = fork();
 		if (p->pid == 0)
 			return (philo_action(p));
+		else
+			(p->game->pid = p->pid);
 		p = p->next;
 		if (p == g->philosopher)
 			break ;
 	}
 	while (p)
 	{
-		sem_post(p->game->sync);
-		usleep(10);
+		sem_post(p->sem_sync);
 		p = p->next;
 		if (p == g->philosopher)
 			break ;
@@ -86,6 +88,7 @@ int		main(int argc, char **argv)
 {
 	t_game game;
 
+	ft_bzero(&game, sizeof(t_game));
 	if (ca_get_arguments(argc, argv, &game) == ARGS_INVALID)
 		return (err_print(ERR_INVALID_ARGS));
 	else if (game.number_of_philosophers == 0)

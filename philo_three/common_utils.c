@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:35 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 15:29:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 05:36:42 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** returns ARGS_INVALID (-1) if an error occours
 */
 
-char					*set_semname(t_philosophers *p)
+char					*set_semname(char **str, int nb, char id)
 {
 	int				digits;
 	unsigned int	number;
@@ -26,13 +26,13 @@ char					*set_semname(t_philosophers *p)
 
 	i = 0;
 	digits = 1;
-	number = p->number;
+	number = nb;
 	while ((number = number / 10))
 		digits++;
 	s = malloc(3 + digits);
 	s[0] = 'p';
-	s[1] = 'h';
-	number = p->number;
+	s[1] = id;
+	number = nb;
 	while (number >= 0)
 	{
 		s[(digits + 2) - i - 1] = (number % 10) + '0';
@@ -42,7 +42,7 @@ char					*set_semname(t_philosophers *p)
 			break ;
 	}
 	s[digits + 2] = '\0';
-	p->sem_name = s;
+	*str = s;
 	return (s);
 }
 

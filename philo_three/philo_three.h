@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:20:50 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 18:12:09 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct			s_philosophers
 	t_time					last_eaten;
 	char					*sem_name;
 	sem_t					*lasteatenlock;
+	char					*sem_syncname;
+	sem_t					*sem_sync;
 	struct s_philosophers	*next;
 }						t_philosophers;
 
@@ -73,6 +75,7 @@ struct					s_game
 {
 	pid_t			pid;
 	t_time			start_time;
+	uint64_t		start_time_ms;
 	unsigned int	someone_died;
 	unsigned int	all_finished;
 	unsigned int	finished_eating_count;
@@ -86,6 +89,7 @@ struct					s_game
 	sem_t			*deadlock;
 	sem_t			*eatenlock;
 	sem_t			*forks;
+	sem_t			*forkslock;
 	sem_t			*sync;
 	sem_t			*end_game;
 	t_philosophers	*philosopher;
@@ -101,10 +105,11 @@ void					ft_putstr_fd(char *str, int fd);
 ssize_t					ft_atoui(char *s);
 void					ph_setaction(t_philosophers *p, int action, long ms);
 void					ph_writeaction(t_philosophers *p, int action, long ms);
-void					ft_usleep(long int us);
-unsigned long int		ttime_to_ms(t_time time);
-char					*set_semname(t_philosophers *p);
-unsigned long int		get_time(t_game *g);
+void					ft_usleep(uint64_t ms);
+uint64_t				ttime_to_ms(t_time time);
+char					*set_semname(char **str, int nb, char id);
+long					get_elapsedtime(t_game *g);
+void					ft_bzero(void* s, int size);
 
 /*
 ** **** args:

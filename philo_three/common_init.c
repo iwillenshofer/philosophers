@@ -6,11 +6,25 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 21:33:34 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/15 19:37:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 18:44:56 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
+
+void	ft_bzero(void* s, int size)
+{
+	int i;
+	char *str;
+
+	str = (char*)s;
+	i = 0;
+	while (i < size)
+	{
+		str[i] = 0;
+		i++;
+	}
+}
 
 /*
 ** return 0 if allocation fails
@@ -27,6 +41,7 @@ int		init_philosophers(t_game *game)
 	{
 		if (!(new = (t_philosophers *)malloc(sizeof(t_philosophers))))
 			return (FAIL);
+		ft_bzero(new, sizeof(t_philosophers));
 		new->times_eaten = 0;
 		new->number = i + 1;
 		new->game = game;
