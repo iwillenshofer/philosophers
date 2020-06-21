@@ -28,7 +28,8 @@ void	wait_for_end(t_game *g)
 	t_philosophers	*p;
 	int				status;
 
-	waitpid(-1, &status, 0);
+	if(g->pid)
+		waitpid(-1, &status, 0);
 	sem_unlink("forkslock");
 	sem_unlink("fork");
 	sem_unlink("eatenlock");

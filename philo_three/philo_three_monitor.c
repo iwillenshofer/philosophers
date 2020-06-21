@@ -38,7 +38,7 @@ void	*monitor(void *philosopher)
 		}
 		sem_post(p->lasteatenlock);
 		usleep(1000);
-
 	}
 	return (0);
+
 }

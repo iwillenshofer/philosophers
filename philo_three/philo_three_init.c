@@ -28,13 +28,13 @@ void	philo_three_init(t_game *g)
 	sem_unlink("deadlock");
 	sem_unlink("eatenlock");
 	sem_unlink("end_game");
-	g->forks = sem_open("fork", O_CREAT, 0600,
+	g->forks = sem_open("fork", O_CREAT, 0777,
 								(g->number_of_philosophers));
 	g->forkslock = sem_open("forkslock", O_CREAT, 0777, 1);
-	g->writelock = sem_open("writelock", O_CREAT, 0600, 1);
-	g->deadlock = sem_open("deadlock", O_CREAT, 0600, 1);
-	g->eatenlock = sem_open("eatenlock", O_CREAT, 0600, 1);
-	g->end_game = sem_open("end_game", O_CREAT, 0600, 0);
+	g->writelock = sem_open("writelock", O_CREAT, 0777, 1);
+	g->deadlock = sem_open("deadlock", O_CREAT, 0777, 1);
+	g->eatenlock = sem_open("eatenlock", O_CREAT, 0777, 1);
+	g->end_game = sem_open("end_game", O_CREAT, 0777, 0);
 	while (p)
 	{
 		sem_unlink(set_semname(&(p->sem_name), p->number, 'h'));

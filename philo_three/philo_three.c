@@ -34,17 +34,16 @@ void	*wait_end(void *philosopher)
 
 	p = (t_philosophers*)philosopher;
 	sem_wait(p->game->end_game);
-	memfree_all(p->game);
-	exit(0);
+	p->game->someone_died = 1;
+	p->game->all_finished = 1;
+	return (0);
 }
 
 int		philo_action(t_philosophers *p)
 {	
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_create(&(p->end_thread), NULL, &wait_end, p);
-	pthread_detach(p->end_thread);
 	pthread_create(&(p->monitor_thread), NULL, &monitor, p);
-	pthread_detach(p->monitor_thread);
 	while (42 && !((p->game->someone_died)) && !((p->game->all_finished)))
 	{
 		if (check_death_or_finish(p->game))
@@ -57,6 +56,8 @@ int		philo_action(t_philosophers *p)
 			break ;
 		philo_think(p);
 	}
+	pthread_join(p->end_thread, NULL);
+	pthread_join(p->monitor_thread, NULL);
 	return (0);
 }
 
