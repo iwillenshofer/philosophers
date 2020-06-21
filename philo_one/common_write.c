@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/21 16:33:01 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 16:34:12 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		ph_setaction(t_philosophers *p, int action, long ms)
 		ph_writeaction(p, action, ms);
 	if (action == AC_DIED)
 		p->game->someone_died = 1;
-	pthread_mutex_lock(&(p->game->finished_eating_lock));
+	pthread_mutex_unlock(&(p->game->finished_eating_lock));
 	pthread_mutex_unlock(&(p->game->someone_died_lock));
 	pthread_mutex_unlock(&(p->game->writelock));
 }
