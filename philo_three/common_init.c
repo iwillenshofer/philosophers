@@ -6,16 +6,16 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 21:33:34 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 21:03:21 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:36:25 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-void	ft_bzero(void* s, int size)
+void	ft_bzero(void *s, int size)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	str = (char*)s;
 	i = 0;

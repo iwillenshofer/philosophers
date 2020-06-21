@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 04:16:33 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:30:21 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ void	*monitor(void *philosopher)
 	ft_usleep(50);
 	while (p && !((g->someone_died)) && (!((g->all_finished))))
 	{
-		sem_wait(p->game->deadlock);
-		if ((p->game->someone_died))
-			exit(0);
-		sem_post(p->game->deadlock);
 		gettimeofday(&time, NULL);
 		sem_wait(p->lasteatenlock);
 		time_lasteaten = p->last_eaten;
@@ -40,7 +36,5 @@ void	*monitor(void *philosopher)
 		sem_post(p->lasteatenlock);
 		ft_usleep(1);
 	}
-
 	return (0);
-
 }
