@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 19:23:30 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 21:01:23 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ void		ph_setaction(t_philosophers *p, int action, long ms)
 			if (p->game->finished_eating_count
 							== p->game->number_of_philosophers)
 			{
+				sem_wait(p->game->eatenlock);
 				ph_writeaction(p, AC_ALL_EATEN, ms);
 				p->game->all_finished = TRUE;
+				sem_post(p->game->eatenlock);
 			}
 		}
 	}

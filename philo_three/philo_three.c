@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 19:36:37 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 21:10:02 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ int		check_death_or_finish(t_game *g)
 	int ret;
 
 	ret = 0;
+	sem_wait(g->deadlock);
 	if ((g->someone_died))
 		ret = 1;
+	sem_post(g->deadlock);
+	sem_wait(g->eatenlock);
 	if ((g->all_finished))
 		ret = 1;
+	sem_post(g->eatenlock);
 	return (ret);
 }
 
@@ -70,13 +74,6 @@ int		play_game(t_game *g)
 			return (philo_action(p));
 		else
 			(p->game->pid = p->pid);
-		p = p->next;
-		if (p == g->philosopher)
-			break ;
-	}
-	while (p)
-	{
-		sem_post(p->sem_sync);
 		p = p->next;
 		if (p == g->philosopher)
 			break ;

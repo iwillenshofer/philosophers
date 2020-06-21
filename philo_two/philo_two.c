@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 03:45:05 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 20:56:54 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ int		check_death_or_finish(t_game *g)
 	int ret;
 
 	ret = 0;
+	sem_wait(g->deadlock);
 	if (g->someone_died)
 		ret = 1;
+	sem_post(g->deadlock);
+	sem_wait(g->eatenlock);
 	if (g->all_finished)
 		ret = 1;
+	sem_post(g->eatenlock);
 	return (ret);
 }
 
@@ -67,6 +71,7 @@ int		main(int argc, char **argv)
 {
 	t_game game;
 
+	ft_bzero(&game, sizeof(t_game));
 	if (ca_get_arguments(argc, argv, &game) == ARGS_INVALID)
 		return (err_print(ERR_INVALID_ARGS));
 	else if (game.number_of_philosophers == 0)

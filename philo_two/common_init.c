@@ -6,11 +6,25 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 21:33:34 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 01:11:31 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/20 21:03:22 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
+
+void	ft_bzero(void* s, int size)
+{
+	int i;
+	char *str;
+
+	str = (char*)s;
+	i = 0;
+	while (i < size)
+	{
+		str[i] = 0;
+		i++;
+	}
+}
 
 /*
 ** return 0 if allocation fails

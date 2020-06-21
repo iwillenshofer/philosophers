@@ -6,7 +6,7 @@
 #    By: iwillens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 17:45:43 by iwillens          #+#    #+#              #
-#    Updated: 2020/06/20 03:46:34 by iwillens         ###   ########.fr        #
+#    Updated: 2020/06/20 21:07:09 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(CC) -c $(CCFLAGS) $< $(INCLUDES) -o $@
 
 test: all
-	./$(NAME) 1 910 200 200 4
+	./$(NAME) 200 2000 200 200
 
 clean: 
 	rm -rf ./build
