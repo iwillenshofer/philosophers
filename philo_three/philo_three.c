@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/21 15:00:03 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 16:14:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		play_game(t_game *g)
 	p = g->philosopher;
 	gettimeofday(&(p->game->start_time), NULL);
 	p->game->start_time_ms = ttime_to_ms(p->game->start_time);
-	ph_setaction(p, AC_TAKENFORK, get_elapsedtime(p->game));
 	while (p)
 	{
 		p->pid = fork();
