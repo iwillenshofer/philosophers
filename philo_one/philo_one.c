@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/19 21:08:08 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:50:16 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	*philo_action(void *philosopher)
 void	play_game(t_game *g)
 {
 	t_philosophers	*p;
+
 	p = g->philosopher;
 	gettimeofday(&(g->start_time), NULL);
 	g->start_time_ms = ttime_to_ms(g->start_time);

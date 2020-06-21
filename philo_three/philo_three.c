@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/21 14:44:09 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 15:00:03 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*wait_end(void *philosopher)
 }
 
 int		philo_action(t_philosophers *p)
-{	
+{
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_create(&(p->monitor_thread), NULL, &monitor, p);
 	pthread_detach(p->monitor_thread);

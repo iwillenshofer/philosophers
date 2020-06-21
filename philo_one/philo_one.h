@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/19 21:08:22 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:48:44 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 # define FALSE 0
 # define TRUE 1
 
-#define MILLISECONDS 0
-#define MICROSECONDS 1
+# define MILLISECONDS 0
+# define MICROSECONDS 1
 
 typedef struct timeval	t_time;
 

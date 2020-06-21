@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:49 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 21:04:13 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:57:40 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void					ft_usleep(uint64_t ms);
 uint64_t				ttime_to_ms(t_time time);
 char					*set_semname(t_philosophers *p);
 long					get_elapsedtime(t_game *g);
-void					ft_bzero(void* s, int size);
+void					ft_bzero(void *s, int size);
 
 /*
 ** **** args:

@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:35 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/17 15:31:52 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:49:38 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void					ft_putstr_fd(char *str, int fd)
 
 void					ft_bzero(void *str, size_t n)
 {
-	char *s;
-	size_t i;
+	char	*s;
+	size_t	i;
 
 	i = 0;
 	s = (char*)str;

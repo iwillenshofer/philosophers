@@ -6,11 +6,25 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:51:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 04:15:07 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:55:49 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_two.h"
+
+void	close_sems(t_game *g)
+{
+	sem_close(g->forkslock);
+	sem_close(g->forks);
+	sem_close(g->writelock);
+	sem_close(g->deadlock);
+	sem_close(g->eatenlock);
+	sem_unlink("fork");
+	sem_unlink("writelock");
+	sem_unlink("forkslock");
+	sem_unlink("deadlock");
+	sem_unlink("eatenlock");
+}
 
 void	wait_for_end(t_game *g)
 {
@@ -24,17 +38,7 @@ void	wait_for_end(t_game *g)
 		if (p == g->philosopher)
 			break ;
 	}
-	sem_close(g->forkslock);
-	sem_close(g->forks);
-	sem_close(g->writelock);
-	sem_close(g->deadlock);
-	sem_close(g->eatenlock);
-
-	sem_unlink("fork");
-	sem_unlink("writelock");
-	sem_unlink("forkslock");
-	sem_unlink("deadlock");
-	sem_unlink("eatenlock");	
+	close_sems(g);
 	p = g->philosopher;
 	while (p)
 	{

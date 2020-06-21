@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:51:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/13 16:25:42 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:51:53 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ void	wait_for_end(t_game *g)
 		if (p == g->philosopher)
 			break ;
 	}
-/*	p = g->philosopher;
-	while (p)
-	{
-		pthread_join(p->monitor_thread, NULL);
-		p = p->next;
-		if (p == g->philosopher)
-			break ;
-	}*/
 }
 
 void	destroy_mutex(t_game *g)

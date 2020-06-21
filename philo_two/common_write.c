@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 14:00:42 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 21:01:23 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:58:39 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ void		ph_setaction(t_philosophers *p, int action, long ms)
 	sem_wait(p->game->deadlock);
 	if ((!(p->game->someone_died) && !(p->game->all_finished)))
 		ph_writeaction(p, action, ms);
-	if (action == AC_DIED)
-		p->game->someone_died = TRUE;
+	action == AC_DIED ? p->game->someone_died = TRUE : 0;
 	if (action == AC_DONEEATING && !(p->game->someone_died)
 									&& !(p->game->all_finished))
 	{

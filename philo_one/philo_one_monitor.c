@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:55:30 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/20 04:16:29 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 14:50:34 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	unlock_forks(t_game *g)
 		pthread_mutex_unlock(&(p->left_fork->lock));
 		p = p->next;
 		if (p == g->philosopher)
-			break;
+			break ;
 	}
 }
 
