@@ -41,6 +41,7 @@ int		init_philosophers(t_game *game)
 	{
 		if (!(new = (t_philosophers *)malloc(sizeof(t_philosophers))))
 			return (FAIL);
+		ft_bzero(new, sizeof(t_philosophers));
 		new->times_eaten = 0;
 		new->number = i + 1;
 		new->game = game;

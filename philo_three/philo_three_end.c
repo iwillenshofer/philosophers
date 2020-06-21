@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "philo_three.h"
-
+#include <signal.h>
 void	end_game(t_philosophers *p)
 {
+	p = p->game->philosopher;
 	while (p)
 	{
 		sem_post(p->game->end_game);
@@ -21,15 +22,24 @@ void	end_game(t_philosophers *p)
 		if (p == p->game->philosopher)
 			break ;
 	}
+	sem_post(p->game->deadlock);
+	ft_usleep(100);
+	sem_post(p->game->writelock);
 }
 
 void	wait_for_end(t_game *g)
 {
 	t_philosophers	*p;
-	int				status;
 
-	if(g->pid)
-		waitpid(-1, &status, 0);
+	sem_wait(g->end_game);
+	p = g->philosopher;
+	while (p)
+	{
+		kill(p->pid, SIGKILL);
+		p = p->next;
+		if (p == g->philosopher)
+			break ;
+	}
 	sem_unlink("forkslock");
 	sem_unlink("fork");
 	sem_unlink("eatenlock");

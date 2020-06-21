@@ -21,6 +21,7 @@ void	*monitor(void *philosopher)
 
 	p = (t_philosophers*)philosopher;
 	g = p->game;
+	ft_usleep(50);
 	while (p && !((g->someone_died)) && (!((g->all_finished))))
 	{
 		sem_wait(p->game->deadlock);
@@ -37,8 +38,9 @@ void	*monitor(void *philosopher)
 			break ;
 		}
 		sem_post(p->lasteatenlock);
-		usleep(1000);
+		ft_usleep(1);
 	}
+
 	return (0);
 
 }

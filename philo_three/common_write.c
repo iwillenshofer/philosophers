@@ -68,9 +68,11 @@ void		ph_setaction(t_philosophers *p, int action, long ms)
 	if (action == AC_DONEEATING && !((p->game->someone_died))
 									&& !((p->game->all_finished)))
 		ph_checktimeseaten(p, ms);
-	sem_post(p->game->writelock);
 	if (!((p->game->someone_died)) && !((p->game->all_finished)))
+	{
 		sem_post(p->game->deadlock);
+		sem_post(p->game->writelock);
+	}
 	else
 		end_game(p->game->philosopher);
 }
