@@ -34,7 +34,6 @@ void	*philo_action(void *philosopher)
 
 	p = (t_philosophers *)philosopher;
 	pthread_create(&(p->monitor_thread), NULL, &monitor, p);
-	pthread_detach(p->monitor_thread);
 	while (42 && !(p->game->someone_died) && !(p->game->all_finished))
 	{
 		if (check_death_or_finish(p->game))

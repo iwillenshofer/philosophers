@@ -37,19 +37,19 @@ void	*monitor(void *philosopher)
 	i = 0;
 	p = (t_philosophers*)philosopher;
 	g = p->game;
-	ft_usleep(5000);
+	ft_usleep(50);
 	while (p && !(g->someone_died) && (!(g->all_finished)))
 	{
 		pthread_mutex_lock((&(p->last_eaten_lock)));
 		gettimeofday(&time, NULL);
 		time_lasteaten = p->last_eaten;
-		if (ttime_to_ms(time) > ttime_to_ms(time_lasteaten) + g->time_to_die)
+		if (ttime_to_ms(time) >= ttime_to_ms(time_lasteaten) + g->time_to_die)
 		{
 			ph_setaction(p, AC_DIED, get_elapsedtime(p->game));
 			unlock_forks(g);
 		}
 		pthread_mutex_unlock((&(p->last_eaten_lock)));
-		usleep(1000);
+		ft_usleep(1);
 	}
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 NAME = philo_one
 CC = clang
-CCFLAGS = -Wall -Wextra -Werror  -Wno-nullability-completeness -fsanitize=address -g
+CCFLAGS = -Wall -Wextra -Werror -g -Wno-nullability-completeness
 
 OBJ_DIR= ./build
 SRC_DIR= ./
@@ -38,7 +38,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 all : $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(CCFLAGS) $(OBJS) -o $@
+	$(CC) $(CCFLAGS) $(OBJS) -lpthread -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	mkdir -p ./build

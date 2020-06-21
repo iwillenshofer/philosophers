@@ -34,6 +34,7 @@ void	*wait_end(void *philosopher)
 
 	p = (t_philosophers*)philosopher;
 	sem_wait(p->game->end_game);
+	memfree_all(p->game);
 	exit(0);
 }
 

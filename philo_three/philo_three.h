@@ -19,6 +19,9 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <stdint.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 # define ARGS_INVALID			-1
 

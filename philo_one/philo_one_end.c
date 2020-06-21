@@ -24,6 +24,14 @@ void	wait_for_end(t_game *g)
 		if (p == g->philosopher)
 			break ;
 	}
+/*	p = g->philosopher;
+	while (p)
+	{
+		pthread_join(p->monitor_thread, NULL);
+		p = p->next;
+		if (p == g->philosopher)
+			break ;
+	}*/
 }
 
 void	destroy_mutex(t_game *g)
