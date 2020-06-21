@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:51:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/21 14:45:21 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 17:03:32 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	end_game(t_philosophers *p)
 		if (p == p->game->philosopher)
 			break ;
 	}
+	sem_post(p->game->end_game);
 	sem_post(p->game->deadlock);
 }
 
@@ -59,12 +60,6 @@ void	wait_for_end(t_game *g)
 
 	sem_wait(g->end_game);
 	p = g->philosopher;
-	while (p)
-	{
-		kill(p->pid, SIGKILL);
-		p = p->next;
-		if (p == g->philosopher)
-			break ;
-	}
+	ft_usleep(100);
 	close_semaphores(g);
 }

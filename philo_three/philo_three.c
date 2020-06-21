@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:00:41 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/21 16:14:16 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 17:01:05 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	*wait_end(void *philosopher)
 
 	p = (t_philosophers*)philosopher;
 	g = p->game;
+	sem_wait(g->end_game);
 	sem_wait(g->deadlock);
 	g->someone_died = 1;
 	sem_post(g->deadlock);
@@ -49,6 +50,8 @@ int		philo_action(t_philosophers *p)
 	gettimeofday(&(p->last_eaten), NULL);
 	pthread_create(&(p->monitor_thread), NULL, &monitor, p);
 	pthread_detach(p->monitor_thread);
+	pthread_create(&(p->end_thread), NULL, &wait_end, p);
+	pthread_detach(p->end_thread);
 	while (42 && !((p->game->someone_died)) && !((p->game->all_finished)))
 	{
 		if (check_death_or_finish(p->game))
