@@ -6,7 +6,7 @@
 /*   By: iwillens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 15:54:15 by iwillens          #+#    #+#             */
-/*   Updated: 2020/06/19 17:52:00 by iwillens         ###   ########.fr       */
+/*   Updated: 2020/06/21 16:36:09 by iwillens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	philo_eat(t_philosophers *p)
 	{
 		pthread_mutex_lock(&(p->game->finished_eating_lock));
 		p->game->finished_eating_count++;
-		pthread_mutex_unlock(&(p->game->finished_eating_lock));
 		if (p->game->finished_eating_count == p->game->number_of_philosophers)
 		{
 			ph_setaction(p, AC_ALL_EATEN, get_elapsedtime(p->game));
 			p->game->all_finished = TRUE;
 			unlock_forks(p->game);
 		}
+		pthread_mutex_unlock(&(p->game->finished_eating_lock));
 	}
 }
