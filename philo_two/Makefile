@@ -6,13 +6,13 @@
 #    By: iwillens <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 17:45:43 by iwillens          #+#    #+#              #
-#    Updated: 2020/06/20 21:07:09 by iwillens         ###   ########.fr        #
+#    Updated: 2020/06/21 15:04:50 by iwillens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_two
 CC = clang
-CCFLAGS = -Wall -Wextra -Werror -Wno-nullability-completeness
+CCFLAGS = -Wall -Wextra -Werror
 
 OBJ_DIR= ./build
 SRC_DIR= ./
@@ -38,7 +38,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 all : $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(CCFLAGS) $(OBJS) -lpthread -o $@
+	$(CC) $(CCFLAGS) $(OBJS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	mkdir -p ./build
